@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 
-export default function TextForm() {
-  const [text, settext] = useState("See the text magic");
+export default function TextForm(props) {
+  const [text, settext] = useState("");
 
-  
   const handleuppercase = () => {
     let newtext = text.toUpperCase();
     settext(newtext);
@@ -14,21 +13,23 @@ export default function TextForm() {
     settext(newtext);
   };
 
-  const handleClear=()=>{
-    let newtext=""
-    settext(newtext)
-  }
+  const handleClear = () => {
+    let newtext = "";
+    settext(newtext);
+  };
 
-  const handleCopy=()=>{
-    let newtext=navigator.clipboard.writeText(text);
-    settext(newtext)
-    
-  }
+  const handleCopy = () => {
+    // let newtext = navigator.clipboard.writeText(text);
+    // settext(newtext);
+    var text=document.getElementById('mybox')
+    text.select();
+    navigator.clipboard.writeText(text.value);
+  };
 
-  const handleremovespace= ()=>{
-    let newtext= text.trim().split(/ +/).join(' ');
-    settext(newtext)
-  }
+  const handleremovespace = () => {
+    let newtext = text.trim().split(/ +/).join(" ");
+    settext(newtext);
+  };
 
 
   const handleonchange = (event) => {
@@ -37,14 +38,28 @@ export default function TextForm() {
 
   return (
     <>
-      <h1 className="container my-4">The Text Analyzer</h1>
-      <div className="mb-3 my-4 container">
+      <h1
+        className={`container my-4 text-${
+          props.mode === "light" ? "black" : "white"
+        }`}
+      >
+        The Text Analyzer
+      </h1>
+      <div
+        className={`mb-3 my-4 container text-${
+          props.mode === "light" ? "black" : "white"
+        }`}
+      >
         <label htmlFor="exampleFormControlTextarea1" className="form-label">
           Enter the Text
         </label>
         <textarea
-          className="form-control"
-          id="exampleFormControlTextarea1"
+          className={`form-control text`}
+          style={{backgroundColor:
+            props.mode === "light" ? "#f5f5dc" : "#36454F",color:
+            props.mode === "light" ? "black" : "white"
+          }}
+          id="mybox"
           rows="8"
           onChange={handleonchange}
           value={text}
@@ -58,27 +73,47 @@ export default function TextForm() {
         >
           Convert to uppercase
         </button>
-        <button type="button" className="btn btn-primary mx-2" onClick={handleLowercase}>
+        <button
+          type="button"
+          className="btn btn-primary mx-2"
+          onClick={handleLowercase}
+        >
           Convert to Lowercase
         </button>
-        <button type="button" className="btn btn-primary mx-2" onClick={handleClear}>
+        <button
+          type="button"
+          className="btn btn-primary mx-2"
+          onClick={handleClear}
+        >
           Clear Text
         </button>
-        <button type="button" className="btn btn-primary mx-2" onClick={handleCopy}>
+        <button
+          type="button"
+          className="btn btn-primary mx-2"
+          onClick={handleCopy}
+        >
           Copy Text
         </button>
-        <button type="button" className="btn btn-primary mx-2" onClick={handleremovespace}>
+        <button
+          type="button"
+          className="btn btn-primary mx-2"
+          onClick={handleremovespace}
+        >
           Remove Extra space
         </button>
       </div>
 
-      <div className="container my-4">
+      <div
+        className={`container my-4 text-${
+          props.mode === "light" ? "black" : "white"
+        }`}
+      >
         <h3>Your Text Summary</h3>
         <p>Number of words: {text.split(" ").length}</p>
         <p>Number of Character: {text.length}</p>
-        <p>Reading Time: {0.008*text.split(" ").length} Minutes</p>
+        <p>Reading Time: {0.008 * text.split(" ").length} Minutes</p>
         <h4>Preview of your Text</h4>
-        <p>{text}</p>
+        <p>{text.length>0?text:"Enter the Some Text in the Box to Preview"}</p>
       </div>
     </>
   );
