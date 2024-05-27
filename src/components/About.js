@@ -1,38 +1,17 @@
 import React from "react";
-
-
 export default function About(props) {
-    // const[mystyle,setstyle]=useState({
-    //     backgroundColor:"white",
-    //     color:"black"
-    // })
-    // const[mode,setMode]=useState("Enable Dark mode")
-
-    // const Darkmode=()=>{
-    //     if(mystyle.color==='white'){
-    //        setstyle(({
-    //         backgroundColor:"white",
-    //         color:"black"
-    //     }))
-    //     setMode('Enable Dark Mode')
-    //     }
-    //     else{
-    //         setstyle(({
-    //             backgroundColor:"black",
-    //             color:"white"
-    //         }))
-    //         setMode('Enable Light Mode')
-    //     }
-    // }
-    let mystyle={
-      color:props.color==='dark'?'white':'black',
-      backgroundColor:props.color==='dark'?'#36454F':'white'
-    }
+  let mystyle = {
+    color: props.mode === "dark" ? "white" : "#251B67",
+    backgroundColor: props.mode === "dark" ? "#251B67" : "white",
+  };
   return (
     <>
-      <div className="container my-4" style={mystyle}>
+      <div
+        className="container my-4"
+        style={{ color: props.mode === "dark" ? "white" : "black" }}
+      >
         <h2>About Us</h2>
-        <div className="accordion" id="accordionExample" >
+        <div className="accordion" id="accordionExample">
           <div className="accordion-item">
             <h2 className="accordion-header">
               <button
@@ -51,6 +30,7 @@ export default function About(props) {
               id="collapseOne"
               className="accordion-collapse collapse show"
               data-bs-parent="#accordionExample"
+              style={mystyle}
             >
               <div className="accordion-body" style={mystyle}>
                 <strong>This is the first item's accordion body.</strong> It is
@@ -79,17 +59,18 @@ export default function About(props) {
               id="collapseTwo"
               className="accordion-collapse collapse"
               data-bs-parent="#accordionExample"
+              style={mystyle}
             >
               <div className="accordion-body" style={mystyle}>
                 <strong>This is the second item's accordion body.</strong> It is
-                hidden by default, until the collapse plugin adds thes
-                also worth noting that just about any HTML can go within the{" "}
+                hidden by default, until the collapse plugin adds thes also
+                worth noting that just about any HTML can go within the{" "}
                 <code>.accordion-body</code>, though the transition does limit
                 overflow.
               </div>
             </div>
           </div>
-          <div className="accordion-item">
+          <div className="accordion-item" style={mystyle}>
             <h2 className="accordion-header">
               <button
                 className="accordion-button collapsed"
@@ -107,6 +88,7 @@ export default function About(props) {
               id="collapseThree"
               className="accordion-collapse collapse"
               data-bs-parent="#accordionExample"
+              style={mystyle}
             >
               <div className="accordion-body" style={mystyle}>
                 <strong>This is the third item's accordion body.</strong> It is

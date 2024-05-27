@@ -6,34 +6,28 @@ export default function TextForm(props) {
   const handleuppercase = () => {
     let newtext = text.toUpperCase();
     settext(newtext);
-    // props.showAlert("converted to uppercase", "success")
   };
 
   const handleLowercase = () => {
     let newtext = text.toLowerCase();
     settext(newtext);
-    // props.showAlert("converted to Lowerccase", "success")
   };
 
   const handleClear = () => {
     let newtext = "";
     settext(newtext);
-    // props.showAlert("Text clear", "success")
   };
 
   const handleCopy = () => {
-    var text=document.getElementById('mybox')
+    var text = document.getElementById("mybox");
     text.select();
     navigator.clipboard.writeText(text.value);
-    // props.showAlert("Text Copied to Clipboard", "success")
   };
 
   const handleremovespace = () => {
     let newtext = text.trim().split(/ +/).join(" ");
     settext(newtext);
-    // props.showAlert("removed extra spaces", "success")
   };
-
 
   const handleonchange = (event) => {
     settext(event.target.value);
@@ -46,21 +40,18 @@ export default function TextForm(props) {
           props.mode === "light" ? "black" : "white"
         }`}
       >
-        The Text Analyzer
+        Try Text Analyzer: Uppercase | Lowercase | Copy | Remove space
       </h1>
       <div
         className={`mb-3 my-4 container text-${
           props.mode === "light" ? "black" : "white"
         }`}
       >
-        <label htmlFor="exampleFormControlTextarea1" className="form-label">
-          Enter the Text
-        </label>
         <textarea
           className={`form-control text`}
-          style={{backgroundColor:
-            props.mode === "light" ? "#f5f5dc" : "#36454F",color:
-            props.mode === "light" ? "black" : "white"
+          style={{
+            backgroundColor: props.mode === "light" ? "white" : "#4758a6",
+            color: props.mode === "light" ? "black" : "white",
           }}
           id="mybox"
           rows="8"
@@ -70,6 +61,7 @@ export default function TextForm(props) {
       </div>
       <div className="container ">
         <button
+          disabled={text.length === 0}
           type="button"
           className="btn btn-primary mx-2 my-1"
           onClick={handleuppercase}
@@ -78,6 +70,7 @@ export default function TextForm(props) {
         </button>
         <button
           type="button"
+          disabled={text.length === 0}
           className="btn btn-primary mx-2 my-1"
           onClick={handleLowercase}
         >
@@ -85,6 +78,7 @@ export default function TextForm(props) {
         </button>
         <button
           type="button"
+          disabled={text.length === 0}
           className="btn btn-primary mx-2 my-1"
           onClick={handleClear}
         >
@@ -92,6 +86,7 @@ export default function TextForm(props) {
         </button>
         <button
           type="button"
+          disabled={text.length === 0}
           className="btn btn-primary mx-2 my-1"
           onClick={handleCopy}
         >
@@ -99,6 +94,7 @@ export default function TextForm(props) {
         </button>
         <button
           type="button"
+          disabled={text.length === 0}
           className="btn btn-primary mx-2 my-1"
           onClick={handleremovespace}
         >
@@ -112,11 +108,25 @@ export default function TextForm(props) {
         }`}
       >
         <h3>Your Text Summary</h3>
-        <p>Number of words: {text.split(" ").filter((e)=>{return e.length!==0}).length}</p>
+        <p>
+          Number of words:{" "}
+          {
+            text.split(/\s+/).filter((e) => {
+              return e.length !== 0;
+            }).length
+          }
+        </p>
         <p>Number of Character: {text.length}</p>
-        <p>Reading Time: {0.008 * text.split(" ").length} Minutes</p>
+        <p>
+          Reading Time:{" "}
+          {0.008 *
+            text.split(" ").filter((e) => {
+              return e.length !== 0;
+            }).length}{" "}
+          Minutes
+        </p>
         <h4>Preview of your Text</h4>
-        <p>{text.length>0?text:"Enter the Some Text in the Box to Preview"}</p>
+        <p>{text.length > 0 ? text : "Nothing to Preview"}</p>
       </div>
     </>
   );
